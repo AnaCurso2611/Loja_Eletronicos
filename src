@@ -1,0 +1,57 @@
+drop database Loja_Eletronicos;
+
+create database Loja_Eletronicos;
+
+use Loja_Eletronicos;
+
+create table Produtos
+(IDproduto int auto_increment primary key,
+nome varchar(100) not null unique,
+preco decimal(10,2),
+quantidade int
+);
+
+create table Fornecedores
+(IDfornecedor int auto_increment primary key,
+nome varchar(100) not null unique,
+telefone varchar(15) not null
+);
+
+create table Compras
+(IDcompra int auto_increment primary key,
+IDfornecedor int not null,
+data_compra date,
+foreign key (IDfornecedor) references Fornecedores(IDfornecedor)
+);
+
+create table Itens
+(IDitem int auto_increment primary key,
+IDcompra int,
+IDproduto int,
+quantidade int,
+foreign key (IDcompra) references Compras(IDcompra),
+foreign key (IDproduto) references Produtos(IDproduto)
+);
+
+insert into Produtos(nome, preco, quantidade) values
+('Smartphone AS', 1000.00, 500),
+('Nokia', 200.00, 300),
+('Tablet A11', 2000.00, 500),
+('Iphone A24', 10000.00, 600),
+('Notebook Lenovo', 10000.00, 550),
+('PC Gamer', 15000.00, 400);
+  
+insert into Fornecedores(nome, telefone) values
+('Matheus','111111111111111'),
+('Josias','222222222222222'),
+('Cataplimbas','333333333333333');
+  
+insert into Compras(IDfornecedor, data_compra) values
+( 1 , '2012-12-02'),
+( 2 , '2020-07-26');
+
+insert into Itens(quantidade) values
+(10),
+(4);
+
+select * from Produtos;
